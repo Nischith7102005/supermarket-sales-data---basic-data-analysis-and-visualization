@@ -1,0 +1,17 @@
+import pandas as pd
+df=pd.read_csv('/content/supermarket_sales_sample.csv')
+df.head()
+df['Total']=df['Total'].astype(int)
+df['Date']=pd.to_datetime(df['Date'])
+df[['Total','Date']].head()
+df['Gender'].value_counts(normalize=0,sort=1)
+df.groupby(['City','Gender'])[['City','Gender','Customer type']].value_counts()
+a=df.groupby('Product line')['Total'].sum().sort_values(ascending=True)
+import matplotlib.pyplot as plt
+a.plot(kind='bar',title='Sales data based on product sector',color='green')
+plt.xlabel('Product sector')
+plt.ylabel('Total sales')
+plt.grid(False)
+plt.show()
+df.groupby('Gender')['Total'].sum().plot(kind='pie',title='Genderwise customer segregation',autopct='%1.1f%%')
+plt.show()
